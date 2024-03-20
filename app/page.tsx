@@ -12,19 +12,19 @@ export default function Home() {
         <TabsList className="flex justify-evenly bg-cyan-400">
           <TabsTrigger
             value="barrier"
-            className="px-4 py-2 hover:bg-gray-200 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105" // Added hover animation
+            className="px-4 py-2 hover:bg-gray-200 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105" 
           >
             Barrier
           </TabsTrigger>
           <TabsTrigger
             value="watertank"
-            className="px-4 py-2 hover:bg-gray-200 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105" // Added hover animation
+            className="px-4 py-2 hover:bg-gray-200 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105" 
           >
             Watertank
           </TabsTrigger>
           <TabsTrigger
             value="fan"
-            className="px-4 py-2 hover:bg-gray-200 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105" // Added hover animation
+            className="px-4 py-2 hover:bg-gray-200 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105" 
           >
             Fan
           </TabsTrigger>
