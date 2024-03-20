@@ -1,23 +1,25 @@
+import { Construction } from "lucide-react";
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
 export default function BarrierComponent() {
   return (
-    <div className="">
+    <div className="grid justify-items-center m-12 p-14">
       <div>Barier Control</div>
-      <div className="relative">
+      <div><Construction /></div>
+      <div className="flex m-12">
       <Select>
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Theme" />
+          <SelectValue placeholder="Choose..." />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="light">Slow</SelectItem>
-          <SelectItem value="dark">Mid</SelectItem>
-          <SelectItem value="system">Fast</SelectItem>
+          <SelectItem value="Slow">Slow</SelectItem>
+          <SelectItem value="Mid">Mid</SelectItem>
+          <SelectItem value="Fast">Fast</SelectItem>
         </SelectContent>
       </Select>
+      <Button size="sm" className="border ms-4">Open</Button>
       </div>
-      <Button size="sm" className="border mt-4 relative">Open</Button>
     </div>
   );
 }
