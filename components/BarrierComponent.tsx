@@ -1,9 +1,11 @@
+import { Button } from "./ui/button";
 
 export default function BarrierComponent() {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div >
         <div>Barier</div>
-      </main>
+        <Button size="sm" className="bg-red-700">Selam ben buton</Button>
+      </div>
     );
   }
   
