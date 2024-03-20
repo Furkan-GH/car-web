@@ -12,25 +12,25 @@ export default function Home() {
         <TabsList className="flex justify-evenly bg-rose-950">
           <TabsTrigger
             value="barrier"
-            className="px-4 py-2 text-white hover:text-black hover:bg-white focus:outline-none transition duration-300 ease-in-out transform hover:scale-105 font-bold"
+            className="px-4 py-2 text-white hover:text-black hover:bg-white focus:outline-none ease-in-out transform hover:scale-105 font-bold border-b-8 border-transparent hover:border-white focus:border-white cursor-pointer transition duration-300"
           >
             Barrier
           </TabsTrigger>
           <TabsTrigger
             value="watertank"
-            className="px-4 py-2 text-white hover:text-black hover:bg-white focus:outline-none transition duration-300 ease-in-out transform hover:scale-105 font-bold"
+            className="px-4 py-2 text-white hover:text-black hover:bg-white focus:outline-none ease-in-out transform hover:scale-105 font-bold border-b-8 border-transparent hover:border-white focus:border-white cursor-pointer transition duration-300"
           >
             Watertank
           </TabsTrigger>
           <TabsTrigger
             value="fan"
-            className="px-4 py-2 text-white hover:text-black hover:bg-white focus:outline-none transition duration-300 ease-in-out transform hover:scale-105 font-bold"
+            className="px-4 py-2 text-white hover:text-black hover:bg-white focus:outline-none ease-in-out transform hover:scale-105 font-bold border-b-8 border-transparent hover:border-white focus:border-white cursor-pointer transition duration-300"
           >
             Fan
           </TabsTrigger>
           <TabsTrigger
             value="camera"
-            className="px-4 py-2 text-white hover:text-black hover:bg-white focus:outline-none transition duration-300 ease-in-out transform hover:scale-105 font-bold"
+            className="px-4 py-2 text-white hover:text-black hover:bg-white focus:outline-none ease-in-out transform hover:scale-105 font-bold border-b-8 border-transparent hover:border-white focus:border-white cursor-pointer transition duration-300"
           >
             Camera
           </TabsTrigger>
