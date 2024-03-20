@@ -7,7 +7,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen items-center justify-between p-24">
-
       <Tabs defaultValue="account" className="w-full" >
         <TabsList className="flex rounded-md shadow-md"> {/* Added base styles */}
           <TabsTrigger value="account" className="px-4 py-2 hover:bg-gray-200 focus:outline-none">
