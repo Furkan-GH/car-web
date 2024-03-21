@@ -1,24 +1,40 @@
+"use client"
 import { Construction } from "lucide-react";
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { useState } from "react";
+import { Radio } from "react-loader-spinner";
+
 
 export default function BarrierComponent() {
   return (
-    <div className="grid justify-items-center m-12 p-14">
-      <div>Barier Control</div>
-      <div><Construction /></div>
-      <div className="flex m-12">
-      <Select>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Choose..." />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="Slow">Slow</SelectItem>
-          <SelectItem value="Mid">Mid</SelectItem>
-          <SelectItem value="Fast">Fast</SelectItem>
-        </SelectContent>
-      </Select>
-      <Button size="sm" className="border ms-4">Open</Button>
+    <div className="grid grid-rows-2 grid-flow-col gap-4 min-h-96">
+      <div className="grid row-span-2 text-center m-auto">
+        <Radio
+          visible={true}
+          height="80"
+          width="80"
+          colors={["#ffffff", "#ffffff", "#ffffff"]}
+          ariaLabel="radio-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+      <div className="flex justify-items-center flex-col m-auto mb-4">
+        <div className="flex">Barrier Control</div>
+        <div className="m-auto"><Construction /></div></div>
+      <div className="flex m-auto mt-4">
+        <Select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Choose..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Slow">Slow</SelectItem>
+            <SelectItem value="Mid">Mid</SelectItem>
+            <SelectItem value="Fast">Fast</SelectItem>
+          </SelectContent>
+        </Select>
+        <Button size="sm" className="border ms-4">Open</Button>
       </div>
     </div>
   );
