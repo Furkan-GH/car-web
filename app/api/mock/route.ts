@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
   const message = {
@@ -21,23 +21,20 @@ export async function GET() {
     }
 }
 
-export async function POST() {
-    const message = {
-      "Deneme Yapin - POST": "Hadi hadi iyisiniz",
-      "Deneme verisi1 - POST": "Deneme verisi_11",
-      "Deneme verisi2 - POST": "Deneme verisi_22",
-      "Deneme verisi3 - POST": "Deneme verisi_33",
-    };
-      try {
-        const messageBody = JSON.stringify(message);
+// type SensorData = {
+//     timestamp: number;
+//     temperature: number;
+//     humidity: number;
+//   };
+
+
+
+  export async function POST(req: NextRequest) {
+    const body = await req.json();
   
-        return new NextResponse(messageBody, {
-          status: 200
-        });
-      } catch (error) {
-        console.error(error); 
-        return new NextResponse(JSON.stringify({ error: "Internal Server Error" }), {
-          status: 500,
-        });
-      }
+    console.log("Sensor Data:", body);
+  
+    return new NextResponse(JSON.stringify({body, success: true }), {
+      status: 200,
+    });
   }
