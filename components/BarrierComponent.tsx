@@ -9,11 +9,11 @@ import { Radio } from "react-loader-spinner";
 export default function BarrierComponent() {
   return (
     <div className="grid grid-rows-2 grid-flow-col gap-4 min-h-96">
-      <div className="grid row-span-2 text-center m-auto">
+      <div className="grid row-span-2 text-center m-auto transform-rota">
         <Radio
           visible={true}
-          height="80"
-          width="80"
+          height="200"
+          width="200"
           colors={["#ffffff", "#ffffff", "#ffffff"]}
           ariaLabel="radio-loading"
           wrapperStyle={{}}

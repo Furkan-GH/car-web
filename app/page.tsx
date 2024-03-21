@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-between px-24 py-10 gap-4">
       {/* Tab Header */}
-      <Tabs defaultValue="watertank" className="w-full rounded-md shadow-md overflow-hidden">
+      <Tabs defaultValue="barrier" className="w-full rounded-md shadow-md overflow-hidden">
         <TabsList className="flex justify-evenly bg-rose-950">
           <TabsTrigger
             value="barrier"
