@@ -39,7 +39,7 @@ export default function BarrierComponent() {
   return (
     <div className="grid grid-rows-2 grid-flow-col gap-4 min-h-96 relative">
       {data ? (
-        <motion.div className="grid row-span-2 text-center m-auto transform-rota"
+        <motion.div className="grid row-span-2 text-center m-auto"
           initial={{ x: -300 }}
           animate={{ x: 10 }}
           transition={{ duration: 0.5 }}
@@ -72,7 +72,7 @@ export default function BarrierComponent() {
             wrapperClass="" />
         </motion.div>
         <motion.div
-          className="grid row-span-2 text-center m-auto transform-rota"
+          className="grid row-span-2 text-center m-auto"
           initial={{ x: -320 }}
           animate={{ x: 10 }}
           transition={{ duration: 0.5 }}
@@ -84,7 +84,7 @@ export default function BarrierComponent() {
       </>
       )}
       <div className="flex justify-items-center flex-col m-auto mb-4">
-        <div className="flex font-extrabold text-white text-3xl">Barrier Control</div>
+        <div className="font-extrabold text-white text-3xl">Barrier Control</div>
         <div className="m-auto "><Construction color="#ffffff" size={50} /></div></div>
       <div className="flex m-auto mt-4">
         <Select>
