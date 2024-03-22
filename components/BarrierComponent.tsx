@@ -75,7 +75,7 @@ export default function BarrierComponent() {
           className="grid row-span-2 text-center m-auto transform-rota"
           initial={{ x: -320 }}
           animate={{ x: 10 }}
-          transition={{ duration: 0.5, delay: 1 }}
+          transition={{ duration: 0.5 }}
         >
           <Car
             height="200"
@@ -84,21 +84,21 @@ export default function BarrierComponent() {
       </>
       )}
       <div className="flex justify-items-center flex-col m-auto mb-4">
-        <div className="flex">Barrier Control</div>
-        <div className="m-auto"><Construction /></div></div>
+        <div className="flex font-extrabold text-white text-3xl">Barrier Control</div>
+        <div className="m-auto "><Construction color="#ffffff" size={50} /></div></div>
       <div className="flex m-auto mt-4">
         <Select>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[180px] bg-white ">
             <SelectValue placeholder="Choose..." />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Slow">Slow</SelectItem>
-            <SelectItem value="Mid">Mid</SelectItem>
-            <SelectItem value="Fast">Fast</SelectItem>
+          <SelectContent className="bg-white cursor-pointer">
+            <SelectItem className="cursor-pointer" value="Slow">Slow</SelectItem>
+            <SelectItem className="cursor-pointer" value="Mid">Mid</SelectItem>
+            <SelectItem className="cursor-pointer" value="Fast">Fast</SelectItem>
           </SelectContent>
         </Select>
-        <Button size="sm" className="border ms-4" onClick={handleCarClick}>Open</Button>
-        <Button size="sm" className="border ms-2" onClick={handleRadioClick}>Close</Button>
+        <Button size="sm" className="border ms-4 bg-white text-black" onClick={handleCarClick}>Open</Button>
+        <Button size="sm" className="border ms-2 bg-white text-black  " onClick={handleRadioClick}>Close</Button>
       </div>
     </div>
   );
