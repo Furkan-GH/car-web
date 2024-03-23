@@ -1,0 +1,25 @@
+{
+    "name": "Car Wash",
+    "short_name": "Car Wash",
+    "theme_color": "#0B0865",
+    "background_color": "#271C65",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+      {
+        "src": "/icon-240.png",
+        "sizes": "240x240",
+        "type": "image/png",
+        "purpose": "maskable any"
+      },
+      {
+        "src": "/icon-128.png",
+        "sizes": "128x128",
+        "type": "image/png",
+        "purpose": "maskable any"
+      }
+    ],
+    "splash_pages": null
+  }
