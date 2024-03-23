@@ -9,6 +9,12 @@ import { GiWateringCan } from "react-icons/gi";
 
 export default function WaterTankComponent() {
   const [isAnimating, setIsAnimating] = useState(false);
+  const rotateVariants = {
+    start: { rotate: 0 },
+    end: { rotate: 30 },
+  };
+  
+ 
   useEffect(() => {
     if (isAnimating) {
       setTimeout(() => {
@@ -20,7 +26,15 @@ export default function WaterTankComponent() {
   return (
     <>
       <div className="grid grid-rows-2 grid-flow-col gap-4 min-h-96 relative">
-        <div className="grid m-auto"><GiWateringCan size={150}/></div>
+        <div className="grid m-auto">
+          <motion.div
+          initial={{  }}
+          animate={{ rotate: 30, }}
+          transition={{ duration: 0.5 }}
+          >
+            <GiWateringCan size={120} color="#ffffff"/>
+          </motion.div>
+        </div>
         <div className="grid m-auto">
           <motion.div
             className="grid row-span-2 text-center m-auto"
@@ -43,9 +57,9 @@ export default function WaterTankComponent() {
               <SelectValue placeholder="Choose..." />
             </SelectTrigger>
             <SelectContent className="bg-white cursor-pointer">
-              <SelectItem className="cursor-pointer" value="w-30">%30</SelectItem>
-              <SelectItem className="cursor-pointer" value="w-75">%75</SelectItem>
-              <SelectItem className="cursor-pointer" value="w-100">%100</SelectItem>
+              <SelectItem className="cursor-pointer" value="30">%30</SelectItem>
+              <SelectItem className="cursor-pointer" value="75">%75</SelectItem>
+              <SelectItem className="cursor-pointer" value="100">%100</SelectItem>
             </SelectContent>
           </Select>
           <Button size="sm" className="border ms-4 bg-white text-black">Start</Button>
