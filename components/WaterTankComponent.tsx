@@ -6,12 +6,22 @@ import { MdOutlineLocalCarWash } from "react-icons/md";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { GiWateringCan } from "react-icons/gi";
+import Image from 'next/image';
+import rainGif from "@/components/images/rain.gif";
 
 export default function WaterTankComponent() {
+  const [isHiddenRain, setIsHiddenRain] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
   const rotateVariants = {
     start: { rotate: 0 },
     end: { rotate: 30 },
+  };
+
+  const clickGif = () => {
+    setIsHiddenRain(false);
+  };
+  const clickNonGif = () => {
+    setIsHiddenRain(true);
   };
   
  
@@ -25,6 +35,9 @@ export default function WaterTankComponent() {
 
   return (
     <>
+      <div className={`dz-50 fixed w-32 mt-28 ml-96 ${isHiddenRain && "hidden"}`} >
+          <Image className="rounded-full " src= {rainGif} alt = "yagmurGif" width={500} height={500}/>
+      </div>
       <div className="grid grid-rows-2 grid-flow-col gap-4 min-h-96 relative">
         <div className="grid m-auto">
           <motion.div
@@ -62,8 +75,8 @@ export default function WaterTankComponent() {
               <SelectItem className="cursor-pointer" value="100">%100</SelectItem>
             </SelectContent>
           </Select>
-          <Button size="sm" className="border ms-4 bg-white text-black">Start</Button>
-          <Button size="sm" className="border ms-2 bg-white text-black">Finish</Button>
+          <Button size="sm" onClick={clickGif} className="border ms-4 bg-white text-black">Start</Button>
+          <Button size="sm" onClick={clickNonGif} className="border ms-2 bg-white text-black">Finish</Button>
         </div>
       </div>
     </>

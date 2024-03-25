@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { useEffect, useState } from "react";
 import { Radio } from "react-loader-spinner";
 import { motion } from "framer-motion";
+import { useCurrentTab } from "@/hooks/use-current-tab";
 
 
 export default function BarrierComponent() {
@@ -12,7 +13,8 @@ export default function BarrierComponent() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isHiddenRadio, setIsHiddenRadio] = useState(true);
   const [isHiddenCar, setIsHiddenCar] = useState(true);
-
+  const tabManager = useCurrentTab();
+  
   const handleRadioClick = () => {
     setData(true);
     setIsAnimating(true);
