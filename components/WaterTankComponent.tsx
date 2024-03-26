@@ -23,8 +23,8 @@ export default function WaterTankComponent() {
   const clickNonGif = () => {
     setIsHiddenRain(true);
   };
-  
- 
+
+
   useEffect(() => {
     if (isAnimating) {
       setTimeout(() => {
@@ -35,17 +35,17 @@ export default function WaterTankComponent() {
 
   return (
     <>
-      <div className={`dz-50 fixed w-32 mt-28 ml-96 ${isHiddenRain && "hidden"}`} >
-          <Image className="rounded-full " src= {rainGif} alt = "yagmurGif" width={500} height={500}/>
+      <div className={`z-50 fixed w-32 mt-28 ml-96 ${isHiddenRain && "hidden"}`} >
+        <Image className="rounded-full " src={rainGif} alt="yagmurGif" width={500} height={500} />
       </div>
       <div className="grid grid-rows-2 grid-flow-col gap-4 min-h-96 relative">
         <div className="grid m-auto">
           <motion.div
-          initial={{  }}
-          animate={{ rotate: 30, }}
-          transition={{ duration: 0.5 }}
+            initial={{}}
+            animate={{ rotate: 30, }}
+            transition={{ duration: 0.5 }}
           >
-            <GiWateringCan size={120} color="#ffffff"/>
+            <GiWateringCan size={120} color="#ffffff" />
           </motion.div>
         </div>
         <div className="grid m-auto">
