@@ -1,9 +1,15 @@
+import Video from 'next-video';
+const awesomeVideo = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
 export default function CameraComponent() {
     return (
-      <div>
-        <div className="text-3xl bg-yellow-500">Camera</div>
-      </div>
+      <>
+        <div className='flex justify-center min-h-[600px]'>
+          <Video className='max-w-screen-lg justify-center' src={awesomeVideo} placeholder="blur" />
+        </div>
+      </>
     );
   }
   
+
+  // https://www.npmjs.com/package/next-video

@@ -35,6 +35,7 @@ export default function WaterTankComponent() {
 
   return (
     <>
+    <div className="min-h-[600px]">
       <div className={`z-50 fixed w-32 mt-28 ml-96 ${isHiddenRain && "hidden"}`} >
         <Image className="rounded-full " src={rainGif} alt="yagmurGif" width={500} height={500} />
       </div>
@@ -79,6 +80,7 @@ export default function WaterTankComponent() {
           <Button size="sm" onClick={clickNonGif} className="border ms-2 bg-white text-black">Finish</Button>
         </div>
       </div>
+    </div>
     </>
   );
 }

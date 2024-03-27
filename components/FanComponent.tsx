@@ -30,7 +30,7 @@ export default function FanComponent() {
 
 
   return (
-    <>
+    <div className="min-h-[600px]">
       <div className={`z-50 fixed w-32 mt-44 ml-80 ${isHiddenFire && "hidden"}`} >
         <Image className="rounded-full " src={fireGif} alt="fireGif" />
       </div>
@@ -95,6 +95,6 @@ export default function FanComponent() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -39,7 +39,7 @@ export default function BarrierComponent() {
   };
 
   return (
-    <div className="grid grid-rows-2 grid-flow-col gap-4 min-h-96 relative">
+    <div className="grid grid-rows-2 grid-flow-col gap-4 min-h-[600px] relative">
       {data ? (
         <motion.div className="grid row-span-2 text-center m-auto"
           initial={{ x: -300 }}
