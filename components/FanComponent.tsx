@@ -14,6 +14,15 @@ export default function FanComponent() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isHiddenFire, setIsHiddenFire] = useState(true);
   const [checkState, setCheckState] = useState(false);
+  const [isRotating, setRotatingState] = useState(false);
+
+  const clickStartFan = () => {  
+    setRotatingState(true);
+  };
+
+  const clickEndFan = () => {
+    setRotatingState(false);
+  };
 
   const handleChange = () => {
     setCheckState((prevState) => !prevState);
@@ -38,13 +47,14 @@ export default function FanComponent() {
         <div className="m-auto">
           <motion.div
             className=""
+            initial={{rotate: 0}}
             animate={{
-              rotate: 360,
-              
+              rotate: isRotating ? 360 : 0.0,
             }}
+            exit={{rotate: 0}}
             transition={{
               duration: 1,
-              repeat:Infinity,
+              repeat: isRotating ? Infinity : 0.0,
               ease: "linear",
             }}
           >
@@ -78,8 +88,8 @@ export default function FanComponent() {
                 <SelectItem className="cursor-pointer" value="fastFan">Fast</SelectItem>
               </SelectContent>
             </Select>
-            <Button size="sm" className="border ms-4 bg-white text-black">Start</Button>
-            <Button size="sm" className="border ms-2 bg-white text-black">Finish</Button>
+            <Button size="sm" className="border ms-4 bg-white text-black" onClick={clickStartFan}>Start</Button>
+            <Button size="sm" className="border ms-2 bg-white text-black" onClick={clickEndFan}>Finish</Button>
           </div>
         </div>
         <div className="m-auto">
