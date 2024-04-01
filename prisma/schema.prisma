@@ -16,7 +16,7 @@ enum CarStatus {
   FINISH
 }
 
-enum BarrierStatus {
+enum OperationStatus {
   NONE
   SLOW
   MID
@@ -26,7 +26,9 @@ enum BarrierStatus {
 model WashedCar {
   id String @id @default(cuid())
   status CarStatus @default(NONE)
-  barrierStatus BarrierStatus @default(NONE)
+  barrierStatus OperationStatus @default(NONE)
+  fanStatus OperationStatus @default(NONE)
+  waterTankStatus OperationStatus @default(NONE)
   data SensorData[]
   createdDate DateTime @default(now()) 
 }
@@ -37,4 +39,10 @@ model SensorData {
   sensorData  Json?
   washedCarId String
   washedCar WashedCar @relation(fields: [washedCarId],references: [id],onDelete:Cascade)
+
+  // BURADA SENSOR DATA YERINE BUNLARI DA GONDERTEBILRIIM
+  // barrierIsOpen:Boolen
+  // fanIsOpen:Boolen
+  // waterTankIsOpen:Boolen
+  // temperature:String
 }

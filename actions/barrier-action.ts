@@ -1,10 +1,9 @@
 "use server"
 
 import { db } from "@/lib/db";
-import { BarrierStatus } from "@prisma/client";
+import { OperationStatus } from "@prisma/client";
 
-
-export const UpdateBarrierAction = async (id: string, barrierStatus: BarrierStatus) => {
+export const UpdateBarrierAction = async (id: string, barrierStatus: OperationStatus) => {
     try {
       const updatedCar = await db.washedCar.update({
         where: { id },
