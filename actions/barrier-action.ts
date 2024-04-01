@@ -9,7 +9,7 @@ export const UpdateBarrierAction = async (id: string, barrierStatus: BarrierStat
       const updatedCar = await db.washedCar.update({
         where: { id },
         data: {
-          barrierStatus, 
+          barrierStatus:barrierStatus, 
         },
       });
   
