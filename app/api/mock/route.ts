@@ -21,15 +21,7 @@ export async function GET() {
     }
 }
 
-// type SensorData = {
-//     timestamp: number;
-//     temperature: number;
-//     humidity: number;
-//   };
-
-
-
-  export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest) {
     const body = await req.json();
   
     console.log("Sensor Data:", body);

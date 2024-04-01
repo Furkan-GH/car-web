@@ -16,14 +16,22 @@ enum CarStatus {
   FINISH
 }
 
+enum BarrierStatus {
+  NONE
+  SLOW
+  MID
+  FAST
+}
+
 model WashedCar {
   id String @id @default(cuid())
   status CarStatus @default(NONE)
-  data Data[]
-  createdDate DateTime
+  barrierStatus BarrierStatus @default(NONE)
+  data SensorData[]
+  createdDate DateTime @default(now()) 
 }
 
-model Data {
+model SensorData {
   id            String    @id @default(cuid())
   name          String
   sensorData  Json?

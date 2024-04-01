@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "WashedCar" ALTER COLUMN "createdDate" SET DEFAULT CURRENT_TIMESTAMP;
