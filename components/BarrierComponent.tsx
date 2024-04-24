@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Radio } from "react-loader-spinner";
 import { motion } from "framer-motion";
 import { useCurrentTab } from "@/hooks/use-current-tab";
+import useBarrierDataStore from "@/hooks/use-get-data";
 
 
 export default function BarrierComponent() {
@@ -14,6 +15,7 @@ export default function BarrierComponent() {
   const [isHiddenRadio, setIsHiddenRadio] = useState(true);
   const [isHiddenCar, setIsHiddenCar] = useState(true);
   const tabManager = useCurrentTab();
+  const carIsBarrier = useBarrierDataStore((state) => state.carIsBarrier);
   
   const handleRadioClick = () => {
     setData(true);
@@ -24,6 +26,13 @@ export default function BarrierComponent() {
     setData(false);
     setIsAnimating(true)
   };
+  useEffect(() => {
+    if (carIsBarrier) {
+      setData(false);
+      setIsAnimating(true);
+    }
+  }, [carIsBarrier]);
+  
 
   useEffect(() => {
     if (isAnimating) {

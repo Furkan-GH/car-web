@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { CarStatus } from "@prisma/client";
+import { z } from "zod";
+import { PrismaClient } from "@prisma/client";
+import useBarrierDataStore from "@/hooks/use-get-data";
+import React from "react";
+
+  const prisma = new PrismaClient();
 
   export async function GET() {
     const message = {
@@ -21,11 +27,34 @@ import { CarStatus } from "@prisma/client";
   }
 
   export async function POST(req: NextRequest) {
+    //const setCarIsBarrier = useBarrierDataStore((state) => state.carIsBarrier);
     const body = await req.json();
-  
+    const sensorDataSchema = z.array(
+      z.object({
+        sensorId: z.string().nonempty(),
+        value: z.number(),
+        timestamp : z.string().datetime(),
+        state: z.boolean(),
+      })
+    )
+
     console.log("Sensor Data:", body);
   
     try {
+      const validatedData = sensorDataSchema.safeParse(body.sensorData);
+
+      if(!validatedData.success){
+        console.error('Validation errors:', validatedData.error.issues);
+      return new NextResponse(JSON.stringify({ message: 'Invalid sensor data format', success: false }), {
+        status: 400 // Bad Request
+      });
+      }
+
+      //const sensorData = validatedData.data;
+      
+
+
+
       const transaction = await db.$transaction(async (tx) => {
         console.log("Creating washedCar...");
         const washedCar = await tx.washedCar.create({
@@ -60,18 +89,14 @@ import { CarStatus } from "@prisma/client";
   }
 
 // ORNEK API'YE POST ISTEGİ ATILACAK FORMAT 
-// {
-//     "sensorData": [
-//       {
-//         "sensorId": 1,
-//         "value": 12.5,
-//         "timestamp": "2023-11-16T12:34:56.789Z"
-//       },
-//       {
-//         "sensorId": 2,
-//         "value": 25.0,
-//         "timestamp": "2023-11-16T12:34:56.789Z"
-//       }
-//     ]
-//   }
+//{
+//  "sensorData" : [
+//      {
+//        "sensorId": "sensor123",
+//        "value": 12.5,
+//        "timestamp": "2024-04-24T18:23:00.000Z",
+//        "state": true
+//      }
+//    ]
+//  }
   
