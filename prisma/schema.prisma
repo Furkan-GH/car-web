@@ -39,10 +39,4 @@ model SensorData {
   sensorData  Json?
   washedCarId String
   washedCar WashedCar @relation(fields: [washedCarId],references: [id],onDelete:Cascade)
-
-  // BURADA SENSOR DATA YERINE BUNLARI DA GONDERTEBILRIIM
-  // barrierIsOpen:Boolen
-  // fanIsOpen:Boolen
-  // waterTankIsOpen:Boolen
-  // temperature:String
 }

@@ -1,4 +1,5 @@
 "use client"
+
 import { Car, Construction } from "lucide-react";
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
@@ -7,7 +8,8 @@ import { Radio } from "react-loader-spinner";
 import { motion } from "framer-motion";
 import { useCurrentTab } from "@/hooks/use-current-tab";
 import useBarrierDataStore from "@/hooks/use-get-data";
-
+import { UpdateBarrierAction } from "@/actions/barrier-action";
+import { OperationStatus } from "@prisma/client";
 
 export default function BarrierComponent() {
   const [data, setData] = useState(true);
@@ -16,23 +18,42 @@ export default function BarrierComponent() {
   const [isHiddenCar, setIsHiddenCar] = useState(true);
   const tabManager = useCurrentTab();
   const carIsBarrier = useBarrierDataStore((state) => state.carIsBarrier);
-  
+  const [selectedValue, setSelectedValue] = useState<OperationStatus>(OperationStatus.NONE);
   const handleRadioClick = () => {
     setData(true);
     setIsAnimating(true);
   };
 
-  const handleCarClick = () => {
-    setData(false);
-    setIsAnimating(true)
+  const handleBarrierClick = async (id: string, selectedValue: OperationStatus) => {
+    if (selectedValue) {
+      try {
+        console.log("OPERATION STATUS IS ====" + selectedValue)
+        const updatedCar = await UpdateBarrierAction(id, selectedValue);
+        console.log("Barrier status updated:", updatedCar);
+      } catch (error) {
+        console.error("Error updating barrier status:", error);
+      }
+    } else {
+      console.error("Please select a value.");
+    }
   };
+
+  const handleCarClick = (id: string) => {
+    if(selectedValue !== OperationStatus.NONE) {
+      setData(false);
+      setIsAnimating(true);
+      handleBarrierClick(id, selectedValue);
+    } else {
+      console.error("Please select a value.");
+    }
+  };
+
   useEffect(() => {
     if (carIsBarrier) {
       setData(false);
       setIsAnimating(true);
     }
   }, [carIsBarrier]);
-  
 
   useEffect(() => {
     if (isAnimating) {
@@ -100,16 +121,24 @@ export default function BarrierComponent() {
       <div className="flex m-auto mt-4">
         <Select>
           <SelectTrigger className="w-[180px] bg-white ">
-            <SelectValue placeholder="Choose..." />
+            <SelectValue placeholder="Choose..."  />
           </SelectTrigger>
           <SelectContent className="bg-white cursor-pointer">
-            <SelectItem className="cursor-pointer" value="Slow">Slow</SelectItem>
-            <SelectItem className="cursor-pointer" value="Mid">Mid</SelectItem>
-            <SelectItem className="cursor-pointer" value="Fast">Fast</SelectItem>
+            {/* (TODO) Select item problem. setSelectedValue method not assing the value in state */}
+            {Object.values(OperationStatus).map((status) => (
+              <SelectItem
+                key={status}
+                className="cursor-pointer"
+                value={status} 
+                onClick={() => setSelectedValue(status)}
+              >
+                {status}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
-        <Button size="sm" className="border ms-4 bg-white text-black" onClick={handleCarClick}>Open</Button>
-        <Button size="sm" className="border ms-2 bg-white text-black  " onClick={handleRadioClick}>Close</Button>
+        <Button size="sm" className="border ms-4 bg-white text-black" onClick={() => handleCarClick("clvcflewo0001qkoq88r8bfsy")}>Open</Button>
+        <Button size="sm" className="border ms-2 bg-white text-black" onClick={handleRadioClick}>Close</Button>
       </div>
     </div>
   );
