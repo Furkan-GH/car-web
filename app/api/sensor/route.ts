@@ -35,3 +35,21 @@ export async function DELETE(req: NextRequest) {
         });
     }
 }
+
+export async function GET() {
+    const message = {
+      " Endpoint is Running - ": "🚀",
+    };
+    try {
+      const messageBody = JSON.stringify(message);
+  
+      return new NextResponse(messageBody, {
+        status: 200
+      });
+    } catch (error) {
+      console.error(error);
+      return new NextResponse(JSON.stringify({ error: "Internal Server Error" }), {
+        status: 500,
+      });
+    }
+  }

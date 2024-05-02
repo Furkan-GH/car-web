@@ -10,15 +10,15 @@ import { UpdateBarrierAction } from "@/actions/barrier-action";
 const prisma = new PrismaClient();
 
 export async function GET() {
-  const message = {
-    "Barrier Endpoint is Running - ": "🚀",
-  };
-  try {
-    const messageBody = JSON.stringify(message);
 
-    return new NextResponse(messageBody, {
-      status: 200
+  try {
+    const washedCar = await db.washedCar.findFirst();
+    console.log("GET GET GET ****:", washedCar);
+
+    return new NextResponse(JSON.stringify({ entity: washedCar, success: true }), {
+      status: 200,
     });
+  
   } catch (error) {
     console.error(error);
     return new NextResponse(JSON.stringify({ error: "Internal Server Error" }), {
@@ -27,14 +27,8 @@ export async function GET() {
   }
 }
 
-export async function POST(req: NextRequest) {
-  const body = await req.json();
-  console.log("Sensor Data:", body);
-  //const { setCarId,setCarStatus } = useCurrentCarData();
-
+export async function POST() {
   try {
-    console.error('Request Object:', body);
-
     const transaction = await db.$transaction(async (tx) => {
       console.log("Creating washedCar...");
       const washedCar = await tx.washedCar.create({
@@ -42,13 +36,9 @@ export async function POST(req: NextRequest) {
           status: CarStatus.BARRIER,
         },
       });
-      console.log("WashedCar created:", washedCar.id);
-      
-      
-      //setCarId(washedCar.id);
-      //setCarStatus(CarStatus.BARRIER);
+      console.log("WashedCar created:", washedCar);
 
-      return { washedCar };
+      return  {washedCar} ;
     });
     
     return new NextResponse(JSON.stringify({ entity: transaction, success: true }), {

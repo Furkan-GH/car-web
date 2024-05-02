@@ -13,8 +13,7 @@ const useCurrentCarData = create<CurrentCarData>((set) => ({
   carStatus: CarStatus.NONE, 
 
   setCarId: (id: string) => set((state) => ({ carId: id })),
-  setCarStatus: (newStatus: CarStatus) =>
-    set((state) => ({ carStatus: newStatus })),
+  setCarStatus: (newStatus: CarStatus) =>({carStatus: newStatus }),
 }));
 
 export default useCurrentCarData;
