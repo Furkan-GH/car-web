@@ -1,20 +1,22 @@
 "use server"
-
 import { db } from "@/lib/db";
 import { OperationStatus } from "@prisma/client";
 
-export const UpdateBarrierAction = async (id: string, barrierStatus: OperationStatus) => {
+export const UpdateBarrierAction = async (id: string|null, barrierStatus: OperationStatus) => {
     try {
-      // (TODO) All sensor action file create and write this code 
-      console.log("ID = "+id+"Barier Status = "+barrierStatus);
-      const updatedCar = await db.washedCar.update({
-        where: { id },
-        data: {
-          barrierStatus:barrierStatus, 
-        },
-      });
-  
-      return updatedCar;
+      if (id && barrierStatus !== null) {
+        console.log("ID = " + id + " Barrier Status = " + barrierStatus);
+        const updatedCar = await db.washedCar.update({
+          where: { id },
+          data: {
+            barrierStatus: barrierStatus,
+          },
+        });
+        return updatedCar;
+      } else {
+        console.log("ID veya Barrier Status null, güncelleme işlemi yapılmayacak.");
+        return null;
+      }
     } catch (error) {
       console.error("Error updating barrier status:", error);
       return null; 

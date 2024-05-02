@@ -10,6 +10,7 @@ import { useCurrentTab } from "@/hooks/use-current-tab";
 import useBarrierDataStore from "@/hooks/use-get-data";
 import { UpdateBarrierAction } from "@/actions/barrier-action";
 import { OperationStatus } from "@prisma/client";
+import useCurrentCarData from "@/hooks/use-current-car-data";
 
 export default function BarrierComponent() {
   const [data, setData] = useState(true);
@@ -19,12 +20,18 @@ export default function BarrierComponent() {
   const tabManager = useCurrentTab();
   const carIsBarrier = useBarrierDataStore((state) => state.carIsBarrier);
   const [selectedValue, setSelectedValue] = useState<OperationStatus>(OperationStatus.NONE);
+  const { carId, carStatus} = useCurrentCarData();
+
+  const handleSelectChange = (newValue: OperationStatus) => {
+    setSelectedValue(newValue);
+  };
+
   const handleRadioClick = () => {
     setData(true);
     setIsAnimating(true);
   };
 
-  const handleBarrierClick = async (id: string, selectedValue: OperationStatus) => {
+  const handleBarrierClick = async (id: string|null, selectedValue: OperationStatus) => {
     if (selectedValue) {
       try {
         console.log("OPERATION STATUS IS ====" + selectedValue)
@@ -38,8 +45,8 @@ export default function BarrierComponent() {
     }
   };
 
-  const handleCarClick = (id: string) => {
-    if(selectedValue !== OperationStatus.NONE) {
+  const handleCarClick = (id: string|null) => {
+    if (selectedValue !== OperationStatus.NONE) {
       setData(false);
       setIsAnimating(true);
       handleBarrierClick(id, selectedValue);
@@ -119,25 +126,26 @@ export default function BarrierComponent() {
         <div className="font-extrabold text-white text-3xl">Barrier Control</div>
         <div className="m-auto "><Construction color="#ffffff" size={50} /></div></div>
       <div className="flex m-auto mt-4">
-        <Select>
+        <Select
+          value={selectedValue}
+          onValueChange={handleSelectChange}
+        >
           <SelectTrigger className="w-[180px] bg-white ">
-            <SelectValue placeholder="Choose..."  />
+            <SelectValue placeholder="Choose..." />
           </SelectTrigger>
           <SelectContent className="bg-white cursor-pointer">
-            {/* (TODO) Select item problem. setSelectedValue method not assing the value in state */}
             {Object.values(OperationStatus).map((status) => (
               <SelectItem
                 key={status}
                 className="cursor-pointer"
-                value={status} 
-                onClick={() => setSelectedValue(status)}
+                value={status}
               >
                 {status}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
-        <Button size="sm" className="border ms-4 bg-white text-black" onClick={() => handleCarClick("clvcflewo0001qkoq88r8bfsy")}>Open</Button>
+        <Button size="sm" className="border ms-4 bg-white text-black" onClick={() => handleCarClick(carId)}>Open</Button>
         <Button size="sm" className="border ms-2 bg-white text-black" onClick={handleRadioClick}>Close</Button>
       </div>
     </div>

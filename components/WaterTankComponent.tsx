@@ -8,17 +8,41 @@ import { useEffect, useState } from "react";
 import { GiWateringCan } from "react-icons/gi";
 import Image from 'next/image';
 import rainGif from "@/components/images/rain.gif";
+import { OperationStatus } from "@prisma/client";
+import { UpdateWaterTankAction } from "@/actions/watertank-action";
 
 export default function WaterTankComponent() {
   const [isHiddenRain, setIsHiddenRain] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [selectedValue, setSelectedValue] = useState<OperationStatus>(OperationStatus.NONE);
+  const handleSelectChange = (newValue: OperationStatus) => {
+    setSelectedValue(newValue);
+  };
   const rotateVariants = {
     start: { rotate: 0 },
     end: { rotate: 30 },
   };
-
-  const clickGif = () => {
-    setIsHiddenRain(false);
+  const handleWaterTankClick = async (id:string,selectedValue: OperationStatus) => {
+    if(selectedValue){
+      try{
+        console.log("OPEATİON STATUS IS ===" + selectedValue);
+        const updatedCar = await UpdateWaterTankAction(id,selectedValue);
+        console.log("Barrier status updated:", updatedCar);
+      }catch(error){
+        console.error("Error updating barrier status:",error);
+      }
+    }else{
+        console.error("Please select a value.");
+      }
+    }
+  
+  const handleClick = (id:string) => {
+    if(selectedValue !== OperationStatus.NONE){
+      handleWaterTankClick(id, selectedValue);
+      setIsHiddenRain(false);
+    }else{
+      console.error("Please select a value.");
+    }
   };
   const clickNonGif = () => {
     setIsHiddenRain(true);
@@ -66,17 +90,26 @@ export default function WaterTankComponent() {
           <div className="m-auto"><MdOutlineLocalCarWash color="#ffffff" size={50} /></div>
         </div>
         <div className="flex m-auto mt-4">
-          <Select>
+          <Select
+            value = {selectedValue}
+            onValueChange={handleSelectChange}
+          >
             <SelectTrigger className="w-[180px] bg-white">
               <SelectValue placeholder="Choose..." />
             </SelectTrigger>
             <SelectContent className="bg-white cursor-pointer">
-              <SelectItem className="cursor-pointer" value="30">%30</SelectItem>
-              <SelectItem className="cursor-pointer" value="75">%75</SelectItem>
-              <SelectItem className="cursor-pointer" value="100">%100</SelectItem>
+              {Object.values(OperationStatus).map((status) => (
+                <SelectItem
+                key={status}
+                className="cursor-pointer"
+                value={status}
+                >
+                  {status}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
-          <Button size="sm" onClick={clickGif} className="border ms-4 bg-white text-black">Start</Button>
+          <Button size="sm" onClick={() => handleClick("clvo5vlkp00031dkwiwwkyv2v")} className="border ms-4 bg-white text-black">Start</Button>
           <Button size="sm" onClick={clickNonGif} className="border ms-2 bg-white text-black">Finish</Button>
         </div>
       </div>

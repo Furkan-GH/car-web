@@ -11,13 +11,20 @@ export async function DELETE(req: NextRequest) {
 
         const transaction = await db.$transaction(async (tx) => {
             console.log("Deleting washedCar...");
-            const washedCar = await tx.washedCar.delete({ where: { id: body.id } });
-            //(TODO) İf id value is empty we delete all washed car in db
+            console.log(body.id)
+            if(body.id === ""){
+                console.warn("Empty Id !!! All washedCars are deleting...");
+                await tx.washedCar.deleteMany();
+                console.log("Deleted all washedCars.");
+            }else{
+            const washedCar = await tx.washedCar.delete({ 
+                where: { 
+                    id: body.id 
+                }});
             console.log("WashedCar delete:", washedCar.id);
-
-            return { washedCar };
+            return { washedCar };}
         });
-
+        
         return new NextResponse(JSON.stringify({ entity: transaction, success: true }), {
             status: 200,
         });

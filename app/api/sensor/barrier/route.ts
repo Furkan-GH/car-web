@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { CarStatus } from "@prisma/client";
+import { CarStatus, WashedCar } from "@prisma/client";
 import { PrismaClient } from "@prisma/client";
+import useCurrentCarData from "@/hooks/use-current-car-data";
+import React from "react";
+import { UpdateBarrierAction } from "@/actions/barrier-action";
+
 
 const prisma = new PrismaClient();
 
@@ -25,8 +29,8 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-
   console.log("Sensor Data:", body);
+  //const { setCarId,setCarStatus } = useCurrentCarData();
 
   try {
     console.error('Request Object:', body);
@@ -39,10 +43,14 @@ export async function POST(req: NextRequest) {
         },
       });
       console.log("WashedCar created:", washedCar.id);
+      
+      
+      //setCarId(washedCar.id);
+      //setCarStatus(CarStatus.BARRIER);
 
       return { washedCar };
     });
-    // (TODO) We are work in this id value other section and sensors. Id value save in this state(zustand)
+    
     return new NextResponse(JSON.stringify({ entity: transaction, success: true }), {
       status: 200,
     });

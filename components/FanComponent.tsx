@@ -8,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 import { Car, Pi } from "lucide-react";
+import { UpdateFannAction } from "@/actions/fan-action";
+import { OperationStatus } from "@prisma/client";
 
 
 export default function FanComponent() {
@@ -15,9 +17,33 @@ export default function FanComponent() {
   const [isHiddenFire, setIsHiddenFire] = useState(true);
   const [checkState, setCheckState] = useState(false);
   const [isRotating, setRotatingState] = useState(false);
+  const [selectedValue, setSelectedValue] = useState<OperationStatus>(OperationStatus.NONE);
 
-  const clickStartFan = () => {  
-    setRotatingState(true);
+  const handleSelectChange = (newValue: OperationStatus) => {
+    setSelectedValue(newValue);
+  };
+
+  const handleFanClick = async (id: string, selectedValue: OperationStatus) => {
+    if(selectedValue){
+      try{
+        console.log("OPEATİON STATUS IS ===" + selectedValue);
+        const updatedCar = await UpdateFannAction(id, selectedValue);
+        console.log("Fan status updated:",updatedCar)
+      }catch (error){
+        console.error("Error updating fan status:",error)
+      }
+    }else {
+      console.error("Please select a value.");
+    }
+  }
+
+  const handleCarClick = (id:string) => {  
+    if(selectedValue !== OperationStatus.NONE){
+      setRotatingState(true);
+      handleFanClick(id,selectedValue);
+    }else{
+      console.error("Please select a value.");
+    }
   };
 
   const clickEndFan = () => {
@@ -78,17 +104,26 @@ export default function FanComponent() {
           <div className="text-white text-3xl font-extrabold m-auto p-12">Drying Controller</div>
 
           <div className="flex m-auto -mb-8">
-            <Select>
+            <Select
+              value={selectedValue}
+              onValueChange={handleSelectChange}
+            >
               <SelectTrigger className="w-[180px] bg-white">
                 <SelectValue placeholder="Choose..." />
               </SelectTrigger>
               <SelectContent className="bg-white cursor-pointer">
-                <SelectItem className="cursor-pointer" value="midSlow">Slow</SelectItem>
-                <SelectItem className="cursor-pointer" value="midFan">Mid</SelectItem>
-                <SelectItem className="cursor-pointer" value="fastFan">Fast</SelectItem>
+                {Object.values(OperationStatus).map((status) => (
+                  <SelectItem
+                    key={status}
+                    className="cursor-pointer"
+                    value={status}
+                  >
+                    {status}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
-            <Button size="sm" className="border ms-4 bg-white text-black" onClick={clickStartFan}>Start</Button>
+            <Button size="sm" className="border ms-4 bg-white text-black" onClick={() => handleCarClick("clvo5vlkp00031dkwiwwkyv2v")}>Start</Button>
             <Button size="sm" className="border ms-2 bg-white text-black" onClick={clickEndFan}>Finish</Button>
           </div>
         </div>
@@ -108,3 +143,7 @@ export default function FanComponent() {
     </div>
   );
 }
+function UpdateFanAction(id: string, selectedValue: string) {
+  throw new Error("Function not implemented.");
+}
+
