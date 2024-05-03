@@ -21,8 +21,9 @@ export default function BarrierComponent() {
   const tabManager = useCurrentTab();
   const carIsBarrier = useBarrierDataStore((state) => state.carIsBarrier);
   const [selectedValue, setSelectedValue] = useState<OperationStatus>(OperationStatus.NONE);
-  const { carId, carStatus} = useCurrentCarData();
-  const { setCarId,setCarStatus } = useCurrentCarData();
+  const { carId, carStatus } = useCurrentCarData();
+  const { setCarId, setCarStatus } = useCurrentCarData();
+
   enum CarStatus2 {
     NONE = "NONE",
     BARRIER = "BARRIER",
@@ -37,7 +38,7 @@ export default function BarrierComponent() {
     setIsAnimating(true);
   };
 
-  const handleBarrierClick = async (id: string|null, selectedValue: OperationStatus) => {
+  const handleBarrierClick = async (id: string | null, selectedValue: OperationStatus) => {
     if (selectedValue) {
       try {
         console.log("OPERATION STATUS IS ====" + selectedValue)
@@ -51,7 +52,7 @@ export default function BarrierComponent() {
     }
   };
 
-  const handleCarClick = (id: string|null) => {
+  const handleCarClick = (id: string | null) => {
     if (selectedValue !== OperationStatus.NONE) {
       setData(false);
       setIsAnimating(true);
@@ -60,31 +61,32 @@ export default function BarrierComponent() {
       console.error("Please select a value.");
     }
   };
-
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/sensor/barrier");
+      console.log("API response:", response.data);
+      if (response.data && response.data.entity) {
+        const barrier = response.data.entity.status;
+        setCarStatus(barrier);
+        const car = useCurrentCarData().carStatus;
+        console.log("STATUSSSS =========>>>>"+ car);
+      } else {
+        console.error("Invalid API response:", response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
     // (TODO) setCarStatus is not working !!!!!
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/api/sensor/barrier");
-        console.log("API response:", response.data);
-        if (response.data && response.data.entity) {
-          const barrierStatus = response.data.entity.status;
-          setCarStatus(barrierStatus);
-          console.log("STATUSSSS =========>>>>"+carStatus);
-        } else {
-          console.error("Invalid API response:", response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-  
-    const interval = setInterval(fetchData, 1000); 
-  
-    return () => clearInterval(interval); 
-  }, []); 
-  
-  
+
+
+    const interval = setInterval(fetchData, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+
 
   useEffect(() => {
     if (carIsBarrier) {
@@ -157,26 +159,26 @@ export default function BarrierComponent() {
         <div className="font-extrabold text-white text-3xl">Barrier Control</div>
         <div className="m-auto "><Construction color="#ffffff" size={50} /></div></div>
       <div className="flex m-auto mt-4">
-        {carStatus != CarStatus2.NONE &&(
-        <Select
-          value={selectedValue}
-          onValueChange={handleSelectChange}
-        >
-          <SelectTrigger className="w-[180px] bg-white ">
-            <SelectValue placeholder="Choose..." />
-          </SelectTrigger>
-          <SelectContent className="bg-white cursor-pointer">
-            {Object.values(OperationStatus).map((status) => (
-              <SelectItem
-                key={status}
-                className="cursor-pointer"
-                value={status}
-              >
-                {status}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        {carStatus != CarStatus.NONE && (
+          <Select
+            value={selectedValue}
+            onValueChange={handleSelectChange}
+          >
+            <SelectTrigger className="w-[180px] bg-white ">
+              <SelectValue placeholder="Choose..." />
+            </SelectTrigger>
+            <SelectContent className="bg-white cursor-pointer">
+              {Object.values(OperationStatus).map((status) => (
+                <SelectItem
+                  key={status}
+                  className="cursor-pointer"
+                  value={status}
+                >
+                  {status}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         )}
         <Button size="sm" className="border ms-4 bg-white text-black" onClick={() => handleCarClick(carId)}>Open</Button>
         <Button size="sm" className="border ms-2 bg-white text-black" onClick={handleRadioClick}>Close</Button>
