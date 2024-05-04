@@ -1,26 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { CarStatus, PrismaClient } from "@prisma/client";
-
-export async function GET() {
-  try {
-    const washedCar = await db.washedCar.findFirst({
-        where:{
-            id:localStorage.getItem("carID")!
-        }});
-    console.log("GET GET GET ****:", washedCar);
-
-    return new NextResponse(JSON.stringify({ entity: washedCar, success: true }), {
-      status: 200,
-    });
-  
-  } catch (error) {
-    console.error(error);
-    return new NextResponse(JSON.stringify({ error: "Internal Server Error" }), {
-      status: 500,
-    });
-  }
-}
+import { CarStatus } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST() {
   try {
@@ -31,10 +11,12 @@ export async function POST() {
             id:localStorage.getItem("carID")!
         },
         data: {
-          status: CarStatus.WATERTANK,
+          status: CarStatus.FINISH,
         },
       });
-      console.log("WashedCar Updated:", washedCar);
+      console.log("WashedCar Finish...", washedCar);
+      localStorage.removeItem(washedCar.id);
+
       return  {washedCar} ;
     });
     
@@ -48,3 +30,4 @@ export async function POST() {
     });
   }
 }
+  

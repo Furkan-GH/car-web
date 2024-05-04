@@ -5,7 +5,6 @@ export async function DELETE(req: NextRequest) {
     const body = await req.json();
 
     console.log("Sensor Data:", body);
-
     try {
         console.error('Request Object:', body);
 
@@ -53,3 +52,5 @@ export async function GET() {
       });
     }
   }
+
+  

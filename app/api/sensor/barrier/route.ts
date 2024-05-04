@@ -1,16 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { CarStatus, WashedCar } from "@prisma/client";
-import { PrismaClient } from "@prisma/client";
-import useCurrentCarData from "@/hooks/use-current-car-data";
-import React from "react";
-import { UpdateBarrierAction } from "@/actions/barrier-action";
-
-
-const prisma = new PrismaClient();
+import { CarStatus, PrismaClient } from "@prisma/client";
 
 export async function GET() {
-
   try {
     const washedCar = await db.washedCar.findFirst();
     console.log("GET GET GET ****:", washedCar);
@@ -37,7 +29,7 @@ export async function POST() {
         },
       });
       console.log("WashedCar created:", washedCar);
-
+      localStorage.setItem("carID",washedCar.id);
       return  {washedCar} ;
     });
     

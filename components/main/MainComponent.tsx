@@ -1,14 +1,42 @@
+"use client"
 import BarrierComponent from "../BarrierComponent"
 import CameraComponent from "../CameraComponent"
 import FanComponent from "../FanComponent"
 import WaterTankComponent from "../WaterTankComponent"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
+import useCurrentCarData from "@/hooks/use-current-car-data";
+import { useEffect, useState } from "react"
+
 
 export default function MainComponent() {
+    const { carCameraStatus, carFanStatus, carWaterTankStatus, isOver } = useCurrentCarData();
+    const [tabIndex, setTabIndex] = useState("barrier"); 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (carWaterTankStatus) {
+                    setTabIndex("watertank");
+                } else if (carFanStatus) {
+                    setTabIndex("fan");
+                } else if (carCameraStatus) {
+                    setTabIndex("camera");
+                } else {
+                    setTabIndex("barrier");
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        const interval = setInterval(fetchData, 1000);
+        return () => clearInterval(interval);
+    }, [carCameraStatus, carFanStatus, carWaterTankStatus]);
+
     return (
         <>
             {/* Tab Header */}
-            <Tabs defaultValue="barrier" className="w-full rounded-md shadow-md overflow-hidden">
+            <Tabs value={tabIndex} defaultValue="barrier" className="w-full rounded-md shadow-md overflow-hidden">
                 <TabsList className="flex justify-evenly bg-rose-950">
                     <TabsTrigger
                         value="barrier"

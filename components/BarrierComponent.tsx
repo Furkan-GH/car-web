@@ -9,9 +9,8 @@ import { motion } from "framer-motion";
 import { useCurrentTab } from "@/hooks/use-current-tab";
 import useBarrierDataStore from "@/hooks/use-get-data";
 import { UpdateBarrierAction } from "@/actions/barrier-action";
-import { CarStatus, OperationStatus } from "@prisma/client";
+import { OperationStatus } from "@prisma/client";
 import useCurrentCarData from "@/hooks/use-current-car-data";
-import axios from "axios";
 
 export default function BarrierComponent() {
   const [data, setData] = useState(true);
@@ -21,14 +20,8 @@ export default function BarrierComponent() {
   const tabManager = useCurrentTab();
   const carIsBarrier = useBarrierDataStore((state) => state.carIsBarrier);
   const [selectedValue, setSelectedValue] = useState<OperationStatus>(OperationStatus.NONE);
-  const { carId, carStatus } = useCurrentCarData();
-  const { setCarId, setCarStatus } = useCurrentCarData();
+  const { setCarId,carId, carBarrierStatus } = useCurrentCarData();
 
-  enum CarStatus2 {
-    NONE = "NONE",
-    BARRIER = "BARRIER",
-    // Diğer durumlar buraya eklenebilir
-  }
   const handleSelectChange = (newValue: OperationStatus) => {
     setSelectedValue(newValue);
   };
@@ -61,32 +54,6 @@ export default function BarrierComponent() {
       console.error("Please select a value.");
     }
   };
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/api/sensor/barrier");
-      console.log("API response:", response.data);
-      if (response.data && response.data.entity) {
-        const barrier = response.data.entity.status;
-        setCarStatus(barrier);
-        const car = useCurrentCarData().carStatus;
-        console.log("STATUSSSS =========>>>>"+ car);
-      } else {
-        console.error("Invalid API response:", response.data);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-  useEffect(() => {
-    // (TODO) setCarStatus is not working !!!!!
-
-
-    const interval = setInterval(fetchData, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-
 
   useEffect(() => {
     if (carIsBarrier) {
@@ -159,7 +126,7 @@ export default function BarrierComponent() {
         <div className="font-extrabold text-white text-3xl">Barrier Control</div>
         <div className="m-auto "><Construction color="#ffffff" size={50} /></div></div>
       <div className="flex m-auto mt-4">
-        {carStatus != CarStatus.NONE && (
+        {carBarrierStatus != false && (
           <Select
             value={selectedValue}
             onValueChange={handleSelectChange}
