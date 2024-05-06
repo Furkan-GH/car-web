@@ -29,7 +29,6 @@ export async function POST() {
         },
       });
       console.log("WashedCar created:", washedCar);
-      localStorage.setItem("carID",washedCar.id);
       return  {washedCar} ;
     });
     

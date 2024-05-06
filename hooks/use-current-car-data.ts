@@ -36,7 +36,8 @@ const useCurrentCarData = create<CurrentCarData>((set) => ({
   setCarFanStatus: ()=> set({carFanStatus: true,carWaterTankStatus:false}),
   setCarCameraStatus:()=> set({carCameraStatus: true,carFanStatus:false}),
   setIsOver:()=>set({
-    carId:null,  carBarrierStatus: false,
+    carId:null,  
+    carBarrierStatus: false,
     carFanStatus:false,
     carWaterTankStatus:false,
     carCameraStatus:false,

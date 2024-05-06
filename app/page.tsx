@@ -10,11 +10,10 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/sensor/barrier");
+      const response = await axios.get("http://localhost:3000/api/sensor/barrier"); // TODO Dynamic route
       console.log("API response:", response.data);
       if (response.data && response.data.entity) {
         const status = response.data.entity.status; 
-        console.log("DB DEN GELEN STATUS DEGERI ==" + status)
         switch (status) {
           case CarStatus.BARRIER:
             console.log("ZUSTAND BARRIER ATAMASI OLDU")
