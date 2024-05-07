@@ -10,6 +10,7 @@ datasource db {
 enum CarStatus {
   NONE
   BARRIER
+  BARRIERCLOSE
   WATERTANK
   FAN
   CAMERA

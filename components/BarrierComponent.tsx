@@ -8,7 +8,7 @@ import { Radio } from "react-loader-spinner";
 import { motion } from "framer-motion";
 import { useCurrentTab } from "@/hooks/use-current-tab";
 import useBarrierDataStore from "@/hooks/use-get-data";
-import { UpdateBarrierAction } from "@/actions/barrier-action";
+import { UpdateBarrierAction, UpdateBarrierCloseAction } from "@/actions/barrier-action";
 import { OperationStatus } from "@prisma/client";
 import useCurrentCarData from "@/hooks/use-current-car-data";
 
@@ -148,7 +148,7 @@ export default function BarrierComponent() {
           </Select>
         )}
         <Button size="sm" className="border ms-4 bg-white text-black" onClick={() => handleCarClick(carId)}>Open</Button>
-        <Button size="sm" className="border ms-2 bg-white text-black" onClick={handleRadioClick}>Close</Button>
+        <Button size="sm" className="border ms-2 bg-white text-black" onClick={()=> UpdateBarrierCloseAction(carId)}>Close</Button>
       </div>
     </div>
   );

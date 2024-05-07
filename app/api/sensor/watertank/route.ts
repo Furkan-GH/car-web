@@ -22,29 +22,31 @@ export async function GET() {
   }
 }
 
-export async function POST() {
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+
+  const id = body.id;
+  console.log("ID DEĞERİ => " + id);
   try {
     const transaction = await db.$transaction(async (tx) => {
       console.log("Updating washedCar...");
       const washedCar = await tx.washedCar.update({
-        where:{
-            id:localStorage.getItem("carID")!
+        where: {
+          id: id
         },
         data: {
           status: CarStatus.WATERTANK,
         },
       });
       console.log("WashedCar Updated:", washedCar);
-      return  {washedCar} ;
+      return { washedCar };
     });
-    
-    return new NextResponse(JSON.stringify({ entity: transaction, success: true }), {
+
+    return new NextResponse(JSON.stringify({ success: true }), {
       status: 200,
-    });
-  } catch (error) {
+    });  } catch (error) {
     console.error("Error updating washed car and data entry:", error);
-    return new NextResponse(JSON.stringify({ message: "Error updating data", success: false }), {
+    return new NextResponse(JSON.stringify({ success: true }), {
       status: 500,
-    });
-  }
+    });  }
 }
