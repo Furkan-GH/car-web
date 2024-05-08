@@ -30,6 +30,7 @@ export const UpdateBarrierAction = async (id: string|null, barrierStatus: Operat
           where: { id:id },
           data: {
             barrierStatus:OperationStatus.NONE,
+            status:CarStatus.BARRIERCLOSE
           },
         });
         return updatedCar;

@@ -22,13 +22,16 @@ export async function GET() {
   }
 }
 
-export async function POST() {
+export async function POST(req : NextRequest) {
   try {
+    const body = await req.json();
+    const id = body.id;
+    console.log("ID DEĞERI => "+ id);
     const transaction = await db.$transaction(async (tx) => {
       console.log("Updating washedCar...");
       const washedCar = await tx.washedCar.update({
         where:{
-            id:localStorage.getItem("carID")!
+            id:id
         },
         data: {
           status: CarStatus.FAN,

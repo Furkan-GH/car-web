@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 import { Car, Pi } from "lucide-react";
-import { UpdateFannAction } from "@/actions/fan-action";
+import { UpdateFanCloseAction, UpdateFannAction } from "@/actions/fan-action";
 import { OperationStatus } from "@prisma/client";
 import useCurrentCarData from "@/hooks/use-current-car-data";
 
@@ -49,6 +49,7 @@ export default function FanComponent() {
   };
 
   const clickEndFan = () => {
+    UpdateFanCloseAction(carId);
     setRotatingState(false);
   };
 

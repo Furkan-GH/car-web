@@ -9,7 +9,7 @@ import { GiWateringCan } from "react-icons/gi";
 import Image from 'next/image';
 import rainGif from "@/components/images/rain.gif";
 import { OperationStatus } from "@prisma/client";
-import { UpdateWaterTankAction } from "@/actions/watertank-action";
+import { UpdateWaterTankAction, UpdateWatertankCloseAction } from "@/actions/watertank-action";
 import useCurrentCarData from "@/hooks/use-current-car-data";
 
 export default function WaterTankComponent() {
@@ -48,6 +48,7 @@ export default function WaterTankComponent() {
   };
   const clickNonGif = () => {
     setIsHiddenRain(true);
+    UpdateWatertankCloseAction(carId);
   };
 
 
