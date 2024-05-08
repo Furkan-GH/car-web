@@ -1,5 +1,4 @@
 import { db } from "@/lib/db";
-import { CarStatus } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -7,17 +6,6 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const id = body.id;
     console.log("ID DEĞERI =>" + id);
-// const transaction = await db.$transaction(async (tx) => {
-      //   console.log("Updating washedCar...");
-      //   const washedCar = await tx.washedCar.update({
-      //     where:{
-      //         id:id
-      //     },
-      //     data: {
-      //       status: CarStatus.FINISH,
-      //     },
-      //   });
-      //  console.log("WashedCar Finish...", washedCar);
     const transaction = await db.$transaction(async (tx) => {
       const washedCar = await tx.washedCar.delete({
         where: {
