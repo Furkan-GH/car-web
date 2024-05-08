@@ -1,6 +1,6 @@
 "use server"
 import { db } from "@/lib/db";
-import { OperationStatus } from "@prisma/client";
+import { CarStatus, OperationStatus } from "@prisma/client";
 
 export const UpdateBarrierAction = async (id: string|null, barrierStatus: OperationStatus) => {
     try {
@@ -29,7 +29,7 @@ export const UpdateBarrierAction = async (id: string|null, barrierStatus: Operat
         const updatedCar = await db.washedCar.update({
           where: { id:id },
           data: {
-            barrierStatus:OperationStatus.NONE
+            barrierStatus:OperationStatus.NONE,
           },
         });
         return updatedCar;

@@ -10,11 +10,13 @@ import Image from 'next/image';
 import rainGif from "@/components/images/rain.gif";
 import { OperationStatus } from "@prisma/client";
 import { UpdateWaterTankAction } from "@/actions/watertank-action";
+import useCurrentCarData from "@/hooks/use-current-car-data";
 
 export default function WaterTankComponent() {
   const [isHiddenRain, setIsHiddenRain] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
   const [selectedValue, setSelectedValue] = useState<OperationStatus>(OperationStatus.NONE);
+  const { setCarId,carId, carBarrierStatus } = useCurrentCarData();
   const handleSelectChange = (newValue: OperationStatus) => {
     setSelectedValue(newValue);
   };
@@ -22,7 +24,7 @@ export default function WaterTankComponent() {
     start: { rotate: 0 },
     end: { rotate: 30 },
   };
-  const handleWaterTankClick = async (id:string,selectedValue: OperationStatus) => {
+  const handleWaterTankClick = async (id:string | null,selectedValue: OperationStatus) => {
     if(selectedValue){
       try{
         console.log("OPEATİON STATUS IS ===" + selectedValue);
@@ -36,7 +38,7 @@ export default function WaterTankComponent() {
       }
     }
   
-  const handleClick = (id:string) => {
+  const handleClick = (id:string | null) => {
     if(selectedValue !== OperationStatus.NONE){
       handleWaterTankClick(id, selectedValue);
       setIsHiddenRain(false);
@@ -109,7 +111,7 @@ export default function WaterTankComponent() {
               ))}
             </SelectContent>
           </Select>
-          <Button size="sm" onClick={() => handleClick("clvo5vlkp00031dkwiwwkyv2v")} className="border ms-4 bg-white text-black">Start</Button>
+          <Button size="sm" onClick={() => handleClick(carId)} className="border ms-4 bg-white text-black">Start</Button>
           <Button size="sm" onClick={clickNonGif} className="border ms-2 bg-white text-black">Finish</Button>
         </div>
       </div>

@@ -10,7 +10,7 @@ export default function Home() {
   const [state,setState] = useState("barrier");
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/sensor/${state}`); // TODO get method with id
+      const response = await axios.get(`http://localhost:3000/api/sensor/${state}`); // TODO get method with id
       console.log("API response:", response.data);
       if (response.data && response.data.entity) {
         const status = response.data.entity.status; 

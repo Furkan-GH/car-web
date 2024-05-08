@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { Car, Pi } from "lucide-react";
 import { UpdateFannAction } from "@/actions/fan-action";
 import { OperationStatus } from "@prisma/client";
+import useCurrentCarData from "@/hooks/use-current-car-data";
 
 
 export default function FanComponent() {
@@ -18,12 +19,13 @@ export default function FanComponent() {
   const [checkState, setCheckState] = useState(false);
   const [isRotating, setRotatingState] = useState(false);
   const [selectedValue, setSelectedValue] = useState<OperationStatus>(OperationStatus.NONE);
-
+  const { setCarId,carId, carBarrierStatus } = useCurrentCarData();
+  
   const handleSelectChange = (newValue: OperationStatus) => {
     setSelectedValue(newValue);
   };
 
-  const handleFanClick = async (id: string, selectedValue: OperationStatus) => {
+  const handleFanClick = async (id: string | null, selectedValue: OperationStatus) => {
     if(selectedValue){
       try{
         console.log("OPEATİON STATUS IS ===" + selectedValue);
@@ -37,7 +39,7 @@ export default function FanComponent() {
     }
   }
 
-  const handleCarClick = (id:string) => {  
+  const handleCarClick = (id: string | null) => {  
     if(selectedValue !== OperationStatus.NONE){
       setRotatingState(true);
       handleFanClick(id,selectedValue);
@@ -123,7 +125,7 @@ export default function FanComponent() {
                 ))}
               </SelectContent>
             </Select>
-            <Button size="sm" className="border ms-4 bg-white text-black" onClick={() => handleCarClick("clvo5vlkp00031dkwiwwkyv2v")}>Start</Button>
+            <Button size="sm" className="border ms-4 bg-white text-black" onClick={() => handleCarClick(carId)}>Start</Button>
             <Button size="sm" className="border ms-2 bg-white text-black" onClick={clickEndFan}>Finish</Button>
           </div>
         </div>
