@@ -12,10 +12,12 @@ export async function POST(req: NextRequest) {
           id:id
         },
       });
-      console.log("WashedCar deleted:", washedCar); // Log the deleted car
+      console.log("WashedCar deleted:", washedCar); 
 
-      return { washedCar }; // Return the deleted car object
+      return { washedCar }; 
     });
+
+    window.location.href = '/';
 
     return new NextResponse(JSON.stringify({ entity: transaction, success: true }), {
       status: 200,
