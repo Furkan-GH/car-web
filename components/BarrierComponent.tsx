@@ -26,11 +26,6 @@ export default function BarrierComponent() {
     setSelectedValue(newValue);
   };
 
-  const handleRadioClick = () => {
-    setData(true);
-    setIsAnimating(true);
-  };
-
   const handleBarrierClick = async (id: string | null, selectedValue: OperationStatus) => {
     if (selectedValue) {
       try {

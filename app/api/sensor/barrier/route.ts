@@ -4,7 +4,12 @@ import { CarStatus, PrismaClient } from "@prisma/client";
 
 export async function GET() {
   try {
-    const washedCar = await db.washedCar.findFirst();
+    //const washedCar = await db.washedCar.findFirst();
+    const washedCar = await db.washedCar.findFirst({
+      orderBy: {
+        createdDate: "desc",
+      }
+    })
     console.log("GET GET GET ****:", washedCar);
 
     return new NextResponse(JSON.stringify({ entity: washedCar, success: true }), {
