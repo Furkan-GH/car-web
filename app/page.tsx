@@ -14,6 +14,7 @@ export default function Home() {
       console.log("API response:", response.data);
       if (response.data && response.data.entity) {
         const status = response.data.entity.status; 
+        
         switch (status) {
           case CarStatus.BARRIER:
             setCarId(response.data.entity.id)
