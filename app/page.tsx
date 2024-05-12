@@ -31,7 +31,7 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://carweb31.vercel.app/api/sensor/${state}`); // TODO get method with id
+      const response = await axios.get(`https://carweb31.vercel.app/api/sensor/${state}`); 
       console.log("API response:", response.data);
       if (response.data && response.data.entity) {
         const status = response.data.entity.status; 
