@@ -14,17 +14,16 @@ export default function Home() {
 
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataTemp = async () => {
       try {
         const response = await axios.get('/api/temperature');
-        console.log(response.data);
         console.log(response.data.entity);
         setTemp(response.data.entity);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-    const intervalId = setInterval(fetchData, 1000); 
+    const intervalId = setInterval(fetchDataTemp, 1000); 
     return () => clearInterval(intervalId); 
   }, []);
 
