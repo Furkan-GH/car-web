@@ -11,7 +11,7 @@ import { Car, Pi } from "lucide-react";
 import { UpdateFanCloseAction, UpdateFannAction } from "@/actions/fan-action";
 import { OperationStatus } from "@prisma/client";
 import useCurrentCarData from "@/hooks/use-current-car-data";
-
+import useTemperature from "@/hooks/use-current-temp";
 
 export default function FanComponent() {
   const [isAnimating, setIsAnimating] = useState(false);
@@ -20,7 +20,10 @@ export default function FanComponent() {
   const [isRotating, setRotatingState] = useState(false);
   const [selectedValue, setSelectedValue] = useState<OperationStatus>(OperationStatus.NONE);
   const { setCarId,carId, carBarrierStatus } = useCurrentCarData();
-  
+  const {temp} = useTemperature();
+
+
+
   const handleSelectChange = (newValue: OperationStatus) => {
     setSelectedValue(newValue);
   };
@@ -134,7 +137,7 @@ export default function FanComponent() {
           <div className="flex justify-items-center">
             <div className="border p-2 m-4 rounded-md mr-0"><h3 className="text-white">Tempeture:</h3>
             </div>
-            <div className="border p-2 m-4 rounded-md ml-0"><h1 className="text-white font-bold">30°C</h1>
+            <div className="border p-2 m-4 rounded-md ml-0"><h1 className="text-white font-bold">{temp}°C</h1>
             </div>
           </div>
           <div className="flex m-auto ">

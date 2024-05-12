@@ -1,4 +1,6 @@
 import type { Config } from "tailwindcss"
+
+
 const { blackA } = require('@radix-ui/colors');
 
 const config = {

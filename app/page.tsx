@@ -4,13 +4,35 @@ import useCurrentCarData from "@/hooks/use-current-car-data";
 import { CarStatus } from "@prisma/client";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import useTemperature from "@/hooks/use-current-temp";
+
 
 export default function Home() {
   const { setCarId,setCarBarierStatus,setCarWaterTankStatus, setCarCameraStatus,carId,setIsOver,setCarFanStatus,setError,error } = useCurrentCarData();
   const [state,setState] = useState("barrier");
+  const {setTemp} = useTemperature();
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/temperature');
+        console.log(response.data);
+        console.log(response.data.entity);
+        setTemp(response.data.entity);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    const intervalId = setInterval(fetchData, 1000); 
+    return () => clearInterval(intervalId); 
+  }, []);
+
+
+
   const fetchData = async () => {
     try {
-      const response = await axios.get(`https://carweb31.vercel.app/api/sensor/${state}`); // TODO get method with id
+      const response = await axios.get(`http://localhost:3000/api/sensor/${state}`); // TODO get method with id
       console.log("API response:", response.data);
       if (response.data && response.data.entity) {
         const status = response.data.entity.status; 

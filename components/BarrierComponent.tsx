@@ -21,6 +21,7 @@ export default function BarrierComponent() {
   const carIsBarrier = useBarrierDataStore((state) => state.carIsBarrier);
   const [selectedValue, setSelectedValue] = useState<OperationStatus>(OperationStatus.NONE);
   const { setCarId,carId, carBarrierStatus } = useCurrentCarData();
+  const [isDisable,setIsDisable] = useState(true);
 
   const handleSelectChange = (newValue: OperationStatus) => {
     setSelectedValue(newValue);
@@ -49,7 +50,12 @@ export default function BarrierComponent() {
       console.error("Please select a value.");
     }
   };
-
+  useEffect(() => {
+    if (carBarrierStatus != false) {
+      setIsDisable(false);
+    }
+  }, [carBarrierStatus]);
+  
   useEffect(() => {
     if (carIsBarrier) {
       setData(false);
@@ -120,7 +126,7 @@ export default function BarrierComponent() {
       <div className="flex justify-items-center flex-col m-auto mb-4">
         <div className="font-extrabold text-white text-3xl">Barrier Control</div>
         <div className="m-auto "><Construction color="#ffffff" size={50} /></div></div>
-      <div className="flex m-auto mt-4">
+      <div className={`flex m-auto mt-4 ${isDisable && "disable" && "opacity-15"}`}>
         {carBarrierStatus != false && (
           <Select
             value={selectedValue}
@@ -142,8 +148,8 @@ export default function BarrierComponent() {
             </SelectContent>
           </Select>
         )}
-        <Button size="sm" className="border ms-4 bg-white text-black" onClick={() => handleCarClick(carId)}>Open</Button>
-        <Button size="sm" className="border ms-2 bg-white text-black" onClick={()=> UpdateBarrierCloseAction(carId)}>Close</Button>
+        <Button size="sm" className={`border ms-4 bg-white text-black`} onClick={() => handleCarClick(carId)}>Open</Button>
+        <Button size="sm" className={`border ms-2 bg-white text-black`} onClick={()=> UpdateBarrierCloseAction(carId)}>Close</Button>
       </div>
     </div>
   );
