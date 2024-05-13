@@ -7,11 +7,9 @@ export default function CameraComponent() {
       {/* <div className='flex justify-center min-h-[600px]'>
         <Video className='max-w-screen-lg justify-center' src={awesomeVideo} placeholder="blur" />
       </div> */}
-      <iframe src="/default.asp" width="100%" height="300">
+      <iframe src="/" width="100%" height="300">
       </iframe>
 
-      <iframe src="/default.asp" width="100%" height="300">
-      </iframe>
     </>
   );
 }
