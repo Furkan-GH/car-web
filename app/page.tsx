@@ -16,7 +16,7 @@ export default function Home() {
   useEffect(() => {
     const fetchDataTemp = async () => {
       try {
-        const response = await axios.get('/api/temperature');
+        const response = await axios.get('https://carweb31.vercel.app/api/temperature');
         console.log(response.data.entity);
         setTemp(response.data.entity);
       } catch (error) {
