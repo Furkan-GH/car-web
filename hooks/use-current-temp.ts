@@ -7,7 +7,9 @@ type TemperatureState = {
 
 const useTemperature = create<TemperatureState>((set) => ({
     temp: null, 
-    setTemp: (temp) => set({ temp }), 
+    setTemp: (temp) => set({temp,setTemp(temp) {
+        null
+    }, }), 
 }));
 
 export default useTemperature;
