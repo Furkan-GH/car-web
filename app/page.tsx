@@ -61,6 +61,9 @@ export default function Home() {
           case CarStatus.FINISH:
             console.log("ZUSTAND SIFIRLANDI.")
             setIsOver();
+            setTimeout(() => {
+              window.location.reload();
+          }, 2000);
             break;    
           default:
             break;
