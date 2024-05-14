@@ -28,10 +28,9 @@ export default function Home() {
   }, []);
 
 
-
   const fetchData = async () => {
     try {
-      const response = await axios.get(`https://carweb31.vercel.app/api/sensor/${state}`); 
+      const response = await axios.get(`https://www.washforcars.com/api/sensor/${state}`); 
       console.log("API response:", response.data);
       if (response.data && response.data.entity) {
         const status = response.data.entity.status; 
